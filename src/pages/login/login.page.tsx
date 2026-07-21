@@ -23,9 +23,11 @@ const LoginPage = () => {
           </CustomButton>
           <LoginSubtitle>ou entre com seu email</LoginSubtitle>
           <LoginInputContainer>
+            <p>Email</p>
             <CustomInput placeholder='Digite seu Email' type='email' />
           </LoginInputContainer>
           <LoginInputContainer>
+            <p>Senha</p>
             <CustomInput placeholder='Digite sua Senha' type='password' />
           </LoginInputContainer>
           <CustomButton startIcon={<FiLogIn size={18} />}>Entrar</CustomButton>
