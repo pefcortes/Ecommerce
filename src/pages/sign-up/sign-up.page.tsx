@@ -1,6 +1,7 @@
 import { FiUserPlus } from 'react-icons/fi'
 import { useForm } from 'react-hook-form'
 import validator from 'validator'
+
 import CustomButton from '../../components/custom-button/custom-button.component'
 import CustomInput from '../../components/custom-input/custom-input.component'
 import Header from '../../components/header/header.component'

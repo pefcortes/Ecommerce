@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BsGoogle } from 'react-icons/bs'
 import { FiLogIn } from 'react-icons/fi'
 import { useForm } from 'react-hook-form'
@@ -24,6 +25,10 @@ const LoginPage = () => {
     handleSubmit,
     formState: { errors }
   } = useForm()
+
+  const onSubmit = (data: any) => {
+    console.log({ data })
+  }
 
   return (
     <>
@@ -79,7 +84,7 @@ const LoginPage = () => {
 
           <CustomButton
             startIcon={<FiLogIn size={18} />}
-            onClick={() => handleSubmit(handleSubmitPress)()}
+            onClick={() => handleSubmit(onSubmit)()}
           >
             Entrar
           </CustomButton>
