@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import Colors from '../../theme/theme.colors'
 
 export const LoginContainer = styled.div`
-  height: 100%;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;

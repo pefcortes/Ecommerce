@@ -656,6 +656,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/validator@npm:^13.15.10":
+  version: 13.15.10
+  resolution: "@types/validator@npm:13.15.10"
+  checksum: 10c0/3e2e65fcd37dd6961ca3fd0535293d0c42f5911dc3ca44b96f458835e6db2392b678ccbb0c9815d8c0a14e653439e6c62c7b8758a6cd1d6e390551c9e56618ac
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/eslint-plugin@npm:8.64.0":
   version: 8.64.0
   resolution: "@typescript-eslint/eslint-plugin@npm:8.64.0"
@@ -1515,6 +1522,7 @@ __metadata:
     "@types/react": "npm:^19.2.17"
     "@types/react-dom": "npm:^19.2.3"
     "@types/styled-components": "npm:^5.1.36"
+    "@types/validator": "npm:^13.15.10"
     "@typescript-eslint/eslint-plugin": "npm:^5.15.0"
     "@typescript-eslint/parser": "npm:^5.15.0"
     "@vitejs/plugin-react": "npm:^6.0.3"
@@ -1536,11 +1544,13 @@ __metadata:
     prettier-config-standard: "npm:^7.0.0"
     react: "npm:^19.2.7"
     react-dom: "npm:^19.2.7"
+    react-hook-form: "npm:^7.82.0"
     react-icons: "npm:^5.7.0"
     react-router-dom: "npm:^7.18.1"
     styled-components: "npm:^6.4.4"
     typescript: "npm:~6.0.2"
     typescript-eslint: "npm:^8.64.0"
+    validator: "npm:^13.15.35"
     vite: "npm:^8.1.1"
   languageName: unknown
   linkType: soft
@@ -3476,6 +3486,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hook-form@npm:^7.82.0":
+  version: 7.82.0
+  resolution: "react-hook-form@npm:7.82.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18 || ^19
+  checksum: 10c0/89a3f775a9f2503a2ba4586e6080ddcb435331ef2fcf8cb3d2b29e69386fe21c387b94d8b7000d968357c354dcbf38f650bedeec319971d99c67249a6eec9137
+  languageName: node
+  linkType: hard
+
 "react-icons@npm:^5.7.0":
   version: 5.7.0
   resolution: "react-icons@npm:5.7.0"
@@ -4264,6 +4283,13 @@ __metadata:
   dependencies:
     punycode: "npm:^2.1.0"
   checksum: 10c0/4ef57b45aa820d7ac6496e9208559986c665e49447cb072744c13b66925a362d96dd5a46c4530a6b8e203e5db5fe849369444440cb22ecfc26c679359e5dfa3c
+  languageName: node
+  linkType: hard
+
+"validator@npm:^13.15.35":
+  version: 13.15.35
+  resolution: "validator@npm:13.15.35"
+  checksum: 10c0/1958ebcad578128d154853a2b9bf5b95e7738dcc7d1d065e50a969812272312ec379dcaf375b9d7545e04a71de6755f60f5a4b49c1405737a9c80e11da297eef
   languageName: node
   linkType: hard
 
