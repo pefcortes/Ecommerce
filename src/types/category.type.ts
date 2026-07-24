@@ -1,6 +1,9 @@
+import type { Product } from './product.type'
+
 export interface Category {
-  id: string | number
+  id: string
   name: string
-  categoryName: string
+  displayName?: string
   imageUrl: string
+  products?: Product[]
 }
