@@ -3,7 +3,7 @@ export interface User {
   firstName: string
   lastName: string
   email: string
-  povider: 'firebase' | 'google'
+  provider: 'firebase' | 'google'
   createdAt: Date
   updatedAt: Date
 }
