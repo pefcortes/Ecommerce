@@ -18,16 +18,44 @@ import {
   LoginInputContainer,
   LoginSubtitle
 } from './login.styles'
+import { AuthErrorCodes, signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../../config/firebase.config'
+
+interface LoginFormData {
+  email: string
+  password: string
+}
 
 const LoginPage = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors }
-  } = useForm()
+  } = useForm<LoginFormData>()
 
-  const onSubmit = (data: any) => {
-    console.log({ data })
+  const handleSubmitPress = async (data: LoginFormData) => {
+    console.log({ 'Dados do login': data })
+    try {
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      )
+      console.log({ 'Usuário logado': userCredentials })
+    } catch (error: any) {
+      if (
+        error.code === AuthErrorCodes.INVALID_LOGIN_CREDENTIALS ||
+        error.code === AuthErrorCodes.USER_MISMATCH ||
+        error.code === AuthErrorCodes.USER_DELETED
+      ) {
+        setError('password', {
+          type: 'usuario-ou-senha-invalidos'
+        })
+      } else {
+        console.error('Erro ao fazer login:', error)
+      }
+    }
   }
 
   return (
@@ -66,6 +94,10 @@ const LoginPage = () => {
                 Por favor, insira um e-mail válido.
               </InputErrorMessage>
             )}
+
+            {errors?.password?.type === 'usuario-ou-senha-invalidos' && (
+              <InputErrorMessage>Usuário ou senha inválidos.</InputErrorMessage>
+            )}
           </LoginInputContainer>
 
           <LoginInputContainer>
@@ -80,11 +112,15 @@ const LoginPage = () => {
             {errors?.password?.type === 'required' && (
               <InputErrorMessage>A senha é obrigatória.</InputErrorMessage>
             )}
+
+            {errors?.password?.type === 'usuario-ou-senha-invalidos' && (
+              <InputErrorMessage>Usuário ou senha inválidos.</InputErrorMessage>
+            )}
           </LoginInputContainer>
 
           <CustomButton
             startIcon={<FiLogIn size={18} />}
-            onClick={() => handleSubmit(onSubmit)()}
+            onClick={() => handleSubmit(handleSubmitPress)()}
           >
             Entrar
           </CustomButton>
