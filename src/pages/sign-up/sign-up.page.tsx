@@ -12,6 +12,13 @@ import {
   SignUpHeadline,
   SignUpInputContainer
 } from './sign-up.styles'
+import {
+  createUserWithEmailAndPassword,
+  type AuthError,
+  AuthErrorCodes
+} from 'firebase/auth'
+import { auth, db } from '../../config/firebase.config'
+import { addDoc, collection } from 'firebase/firestore'
 
 type SignUpFormData = {
   firstName: string
@@ -26,13 +33,37 @@ const SignUpPage = () => {
     register,
     handleSubmit,
     watch,
+    setError,
     formState: { errors }
   } = useForm<SignUpFormData>()
 
   const passwordValue = watch('password')
 
-  const onSubmit = (data: SignUpFormData) => {
+  const handleSubmitPress = async (data: SignUpFormData) => {
     console.log('Cadastro:', data)
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      )
+
+      await addDoc(collection(db, 'users'), {
+        id: userCredentials.user.uid,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: userCredentials.user.email,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })
+    } catch (error) {
+      console.error('Erro ao criar usuário:', error)
+      const _error = error as AuthError
+
+      if (_error.code === AuthErrorCodes.EMAIL_EXISTS) {
+        return setError('email', { type: 'alredyinUse' })
+      }
+    }
   }
 
   return (
@@ -83,6 +114,11 @@ const SignUpPage = () => {
             {errors.email?.type === 'validate' && (
               <InputErrorMessage>Insira um e-mail válido.</InputErrorMessage>
             )}
+            {errors.email?.type === 'alredyinUse' && (
+              <InputErrorMessage>
+                Este e-mail já está sendo utilizado.
+              </InputErrorMessage>
+            )}
           </SignUpInputContainer>
 
           <SignUpInputContainer>
@@ -127,7 +163,7 @@ const SignUpPage = () => {
 
           <CustomButton
             startIcon={<FiUserPlus size={18} />}
-            onClick={() => handleSubmit(onSubmit)()}
+            onClick={() => handleSubmit(handleSubmitPress)()}
           >
             Criar Conta
           </CustomButton>
