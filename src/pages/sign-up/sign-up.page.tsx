@@ -53,6 +53,7 @@ const SignUpPage = () => {
         firstName: data.firstName,
         lastName: data.lastName,
         email: userCredentials.user.email,
+        provider: 'firebase',
         createdAt: new Date(),
         updatedAt: new Date()
       })
