@@ -1,11 +1,11 @@
-import SyncLoader from 'react-spinners/SyncLoader'
+import { SyncLoader } from 'react-spinners'
 
 import { LoadingContainer } from './loading.styles'
 
 const Loading: React.FC = () => {
   return (
     <LoadingContainer>
-      <SyncLoader size={30} />
+      <SyncLoader loading={true} size={30} color='#ffffff' />
     </LoadingContainer>
   )
 }
