@@ -24,7 +24,9 @@ const Categories = () => {
           collection(db, 'categories').withConverter(categoryConverter)
         )
 
-        const categoriesFromFirestore = querySnapshot.docs.map((doc) => doc.data())
+        const categoriesFromFirestore = querySnapshot.docs.map((doc) =>
+          doc.data()
+        )
 
         if (isMounted) {
           setCategories(categoriesFromFirestore)

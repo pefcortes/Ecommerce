@@ -19,9 +19,10 @@ import {
 } from 'firebase/auth'
 import { auth, db } from '../../config/firebase.config'
 import { addDoc, collection } from 'firebase/firestore'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../contexts/user.context'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../../components/loading/loading.componnet'
 
 type SignUpFormData = {
   firstName: string
@@ -40,6 +41,8 @@ const SignUpPage = () => {
     formState: { errors }
   } = useForm<SignUpFormData>()
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const passwordValue = watch('password')
 
   const { isAuthenticated } = useContext(UserContext)
@@ -53,7 +56,7 @@ const SignUpPage = () => {
   }, [isAuthenticated, navigate])
 
   const handleSubmitPress = async (data: SignUpFormData) => {
-    console.log('Cadastro:', data)
+    setIsLoading(true)
     try {
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
@@ -77,12 +80,15 @@ const SignUpPage = () => {
       if (_error.code === AuthErrorCodes.EMAIL_EXISTS) {
         return setError('email', { type: 'alredyinUse' })
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
     <>
       <Header />
+      {isLoading && <Loading />}
       <SignUpContainer>
         <SignUpContent>
           <SignUpHeadline>Crie sua conta</SignUpHeadline>
