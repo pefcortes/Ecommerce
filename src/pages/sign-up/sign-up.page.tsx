@@ -19,6 +19,9 @@ import {
 } from 'firebase/auth'
 import { auth, db } from '../../config/firebase.config'
 import { addDoc, collection } from 'firebase/firestore'
+import { useContext, useEffect } from 'react'
+import { UserContext } from '../../contexts/user.context'
+import { useNavigate } from 'react-router-dom'
 
 type SignUpFormData = {
   firstName: string
@@ -38,6 +41,16 @@ const SignUpPage = () => {
   } = useForm<SignUpFormData>()
 
   const passwordValue = watch('password')
+
+  const { isAuthenticated } = useContext(UserContext)
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/')
+    }
+  }, [isAuthenticated, navigate])
 
   const handleSubmitPress = async (data: SignUpFormData) => {
     console.log('Cadastro:', data)
