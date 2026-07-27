@@ -15,9 +15,10 @@ import {
   CartTitle,
   CartTotal
 } from './cart.styles'
+import CartItem from '../cart-item/cart-item.component'
 
 const Cart: React.FC = () => {
-  const { isVisible, toggleCart } = useContext(CartContext)
+  const { isVisible, products, toggleCart } = useContext(CartContext)
 
   return (
     <CartContainer isVisible={isVisible}>
@@ -25,7 +26,9 @@ const Cart: React.FC = () => {
       <CartContent>
         <CartTitle>Seu Carrinho</CartTitle>
 
-        {/* produtos */}
+        {products.map((product) => (
+          <CartItem key={product.id} product={product} />
+        ))}
 
         <CartTotal>Total: R$999</CartTotal>
 
