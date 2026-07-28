@@ -1,4 +1,10 @@
-import { createContext, useMemo, useState, type ReactNode } from 'react'
+import {
+  createContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode
+} from 'react'
 import type { CartProduct } from '../types/cart.type'
 import type { Product } from '../types/product.type'
 
@@ -35,7 +41,17 @@ const CartContextProvider: React.FC<CartContextProviderProps> = ({
   children
 }) => {
   const [isVisible, setIsVisible] = useState(false)
-  const [products, setProducts] = useState<CartProduct[]>([])
+  const [products, setProducts] = useState<CartProduct[]>(() => {
+    if (typeof window === 'undefined') return []
+
+    const storedProducts = localStorage.getItem('cartProducts')
+    return storedProducts ? JSON.parse(storedProducts) : []
+  })
+
+  useEffect(() => {
+    localStorage.setItem('cartProducts', JSON.stringify(products))
+  }, [products])
+
   const toggleCart = () => {
     setIsVisible((prevState) => !prevState)
   }
