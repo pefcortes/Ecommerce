@@ -18,7 +18,7 @@ import {
 import CartItem from '../cart-item/cart-item.component'
 
 const Cart: React.FC = () => {
-  const { isVisible, products, toggleCart, productsTotalPrize } =
+  const { isVisible, products, toggleCart, productsTotalPrize, productsCount } =
     useContext(CartContext)
 
   return (
@@ -31,11 +31,17 @@ const Cart: React.FC = () => {
           <CartItem key={product.id} product={product} />
         ))}
 
-        <CartTotal>Total: R$ {productsTotalPrize} </CartTotal>
+        {productsCount > 0 && (
+          <CartTotal>Total: R$ {productsTotalPrize} </CartTotal>
+        )}
 
-        <CustomButton startIcon={<BsCartCheck />}>
-          Ir para o Checkout
-        </CustomButton>
+        {productsCount > 0 && (
+          <CustomButton startIcon={<BsCartCheck />}>
+            Ir para o Checkout
+          </CustomButton>
+        )}
+
+        {productsCount == 0 && <p> Seu carrinho está vazio! </p>}
       </CartContent>
     </CartContainer>
   )
