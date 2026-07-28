@@ -1,10 +1,11 @@
-import { createContext, useState, type ReactNode } from 'react'
+import { createContext, useMemo, useState, type ReactNode } from 'react'
 import type { CartProduct } from '../types/cart.type'
 import type { Product } from '../types/product.type'
 
 interface ICartContext {
   isVisible: boolean
   products: CartProduct[]
+  productsTotalPrize: number
   toggleCart: () => void
   addProductToCart: (product: Product) => void
   removeProductFromCart: (ProductId: string) => void
@@ -20,6 +21,7 @@ interface CartContextProviderProps {
 export const CartContext = createContext<ICartContext>({
   isVisible: false,
   products: [],
+  productsTotalPrize: 0,
   toggleCart: () => {},
   addProductToCart: () => {},
   removeProductFromCart: () => {},
@@ -35,6 +37,13 @@ const CartContextProvider: React.FC<CartContextProviderProps> = ({
   const toggleCart = () => {
     setIsVisible((prevState) => !prevState)
   }
+
+  const productsTotalPrize = useMemo(() => {
+    return products.reduce((acc, currentProduct) => {
+      return acc + currentProduct.price * currentProduct.quantity
+    }, 0)
+  }, [products])
+
   const addProductToCart = (product: Product) => {
     const productIsAlredyInCart = products.some((item) => item.id == product.id)
 
@@ -69,11 +78,13 @@ const CartContextProvider: React.FC<CartContextProviderProps> = ({
 
   const decreaseProductQuantity = (productId: string) => {
     setProducts((products) =>
-      products.map((product) =>
-        product.id == productId
-          ? { ...product, quantity: product.quantity - 1 }
-          : product
-      )
+      products
+        .map((product) =>
+          product.id == productId
+            ? { ...product, quantity: product.quantity - 1 }
+            : product
+        )
+        .filter((product) => product.quantity > 0)
     )
   }
 
@@ -82,6 +93,7 @@ const CartContextProvider: React.FC<CartContextProviderProps> = ({
       value={{
         isVisible,
         products,
+        productsTotalPrize,
         toggleCart,
         addProductToCart,
         removeProductFromCart,
