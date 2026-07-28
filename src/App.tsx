@@ -13,7 +13,7 @@ import { userConverter } from './converters/firestore.converter'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import Loading from './components/loading/loading.componnet'
 import CheckoutPage from './pages/checkout/checkout.page'
-
+import Authentication from './components/authentiation/authentication.component'
 const App: React.FC = () => {
   const [isInitializing, setIsInitializing] = useState(true)
   const { isAuthenticated, loginUser, logoutUser } = useContext(UserContext)
@@ -57,7 +57,14 @@ const App: React.FC = () => {
         <Route path='/sign-up' element={<SignUpPage />} />
         <Route path='/explore' element={<ExplorePage />} />
         <Route path='/category/:id' element={<CategoryDetailsPage />} />
-        <Route path='/checkout' element={<CheckoutPage />} />
+        <Route
+          path='/checkout'
+          element={
+            <Authentication>
+              <CheckoutPage />
+            </Authentication>
+          }
+        />
       </Routes>
       <Cart />
     </BrowserRouter>
