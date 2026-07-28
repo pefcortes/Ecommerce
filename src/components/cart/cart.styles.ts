@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import Colors from '../../theme/theme.colors'
 
 interface CartContainerPros {
-  isVisible: boolean
+  $isVisible: boolean
 }
 
 export const CartContainer = styled.div<CartContainerPros>`
@@ -16,9 +16,10 @@ export const CartContainer = styled.div<CartContainerPros>`
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: flex-end;
-  visibility: ${(props) => (props.isVisible ? 'visible' : 'hidden')};
-  opacity: ${(props) => (props.isVisible ? '1' : '0')};
+  visibility: ${(props) => (props.$isVisible ? 'visible' : 'hidden')};
+  opacity: ${(props) => (props.$isVisible ? '1' : '0')};
   transition: all 0.3s ease;
+  overflow: hidden;
 
   p {
     color: ${Colors.text.dark};
@@ -27,6 +28,7 @@ export const CartContainer = styled.div<CartContainerPros>`
 
 export const CartEscapeArea = styled.div`
   width: 100%;
+  height: 100%;
 `
 
 export const CartContent = styled.div`
@@ -35,7 +37,8 @@ export const CartContent = styled.div`
   z-index: 200;
   background-color: white;
   padding: 20px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 `
 export const CartTitle = styled.p`
   font-size: 1.325rem;

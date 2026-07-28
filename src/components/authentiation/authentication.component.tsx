@@ -18,7 +18,7 @@ const Authentication: React.FC<AuthenticationProps> = ({ children }) => {
         navigate('/login')
       }, 3000)
     }
-  }, [])
+  }, [isAuthenticated, navigate])
 
   if (!isAuthenticated) {
     return (

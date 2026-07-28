@@ -1,4 +1,4 @@
-import SyncLoader from 'react-spinners/SyncLoader'
+import { SyncLoader } from 'react-spinners'
 
 import { LoadingContainer } from './loading.styles'
 
