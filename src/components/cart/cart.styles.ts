@@ -32,13 +32,14 @@ export const CartEscapeArea = styled.div`
 `
 
 export const CartContent = styled.div`
-  height: 100%;
+  height: 100vh;
   min-width: 500px;
   z-index: 200;
   background-color: white;
   padding: 20px;
   overflow-y: auto;
   overscroll-behavior: contain;
+  box-sizing: border-box;
 `
 export const CartTitle = styled.p`
   font-size: 1.325rem;

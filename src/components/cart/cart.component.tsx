@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { BsCartCheck } from 'react-icons/bs'
 
 // Utilities
@@ -21,6 +21,14 @@ import { useNavigate } from 'react-router-dom'
 const Cart: React.FC = () => {
   const { isVisible, products, toggleCart, productsTotalPrize, productsCount } =
     useContext(CartContext)
+
+  useEffect(() => {
+    document.body.style.overflow = isVisible ? 'hidden' : 'auto'
+
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [isVisible])
 
   const navigate = useNavigate()
   const handleCheckoutClick = () => {
